@@ -26,15 +26,15 @@ class ViewController: UIViewController {
          let searchBar = UISearchBar()
          searchBar.placeholder = "Поиск"
          searchBar.backgroundImage = UIImage()
-         //searchBar.delegate = self
+         searchBar.delegate = self
          return searchBar
      }()
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
-       // tableView.dataSource = self
-       // tableView.delegate = self
-       // tableView.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.reuseIdentifier)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(MyTableViewCell.self, forCellReuseIdentifier: MyTableViewCell.reuseIdentifier)
         return tableView
     }()
     
@@ -81,7 +81,45 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MyTableViewCell.reuseIdentifier, for: indexPath) as! MyTableViewCell
+        
+        switch indexPath.row {
+        case 0:
+            cell.label1.text = "Виктор Власов"
+            cell.label2.text = "Вы: Уже сделал?"
+            cell.label3.text = "Вчера"
+            cell.myImageView.image = UIImage(named: "ВВ")
+        case 1:
+            cell.label1.text = "Саша Алексеев"
+            cell.label2.text = "Я готов"
+            cell.label3.text = "12.01.22"
+            cell.myImageView.image = UIImage(named: "СА")
+        case 2:
+            cell.label1.text = "Петр Жаринов"
+            cell.label2.text = "Вы: Я вышел"
+            cell.label3.text = "2 минуты назад"
+            cell.myImageView.image = UIImage(named: "ПЖ")
+        case 3:
+            cell.label1.text = "Алина Жукова"
+            cell.label2.text = "Вы: Я вышел"
+            cell.label3.text = "09:23"
+            cell.myImageView.image = UIImage(named: "АЖ")
+        default:
+            break
+        }
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let secondVC = SecondViewController()
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? MyTableViewCell {
+            secondVC.selectedImage = cell.myImageView.image
+            secondVC.selectedName = cell.label1.text
+            }
+        
+        navigationController?.pushViewController(secondVC, animated: true)
     }
 }
 
@@ -172,4 +210,24 @@ class MyTableViewCell: UITableViewCell {
     make.top.equalToSuperview().offset(20)
     }
   }
+}
+
+//MARK: -- UISearchBarDelegate
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            tableView.reloadData()
+        } else {
+            for section in 0..<tableView.numberOfSections {
+                for row in 0..<tableView.numberOfRows(inSection: section) {
+                    let indexPath = IndexPath(row: row, section: section)
+                    if let cell = tableView.cellForRow(at: indexPath) as? MyTableViewCell {
+                        
+                        cell.isHidden = !(cell.label1.text?.localizedCaseInsensitiveContains(searchText) ?? false)
+                    }
+                }
+            }
+        }
+    }
 }
