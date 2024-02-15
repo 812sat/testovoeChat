@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  testChats
 //
-//  Created by W1! on 15/02/2024.
+//  Created by Aigerim Kenesbek on 15/02/2024.
 //
 
 import UIKit
