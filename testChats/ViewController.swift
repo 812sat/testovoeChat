@@ -14,7 +14,6 @@ class ViewController: UIViewController {
         let label = UILabel()
         label.backgroundColor = UIColor.white
         label.font = UIFont(name: "Gilroy-Bold", size: 30) ?? UIFont.systemFont(ofSize: 30, weight: .semibold)
-
         label.textColor = UIColor.black
         label.text = "Чаты"
         label.textAlignment = .left
@@ -157,7 +156,7 @@ class MyTableViewCell: UITableViewCell {
     
     public lazy var label3: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "Inter-Regular", size: 12)
+        label.font = UIFont(name: "Inter-Regular", size: 10)
         label.alpha = 0.5
         label.textAlignment = .right
         return label
@@ -188,15 +187,15 @@ class MyTableViewCell: UITableViewCell {
             make.size.equalTo(60)
 
             make.left.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset(20)
-            make.bottom.equalToSuperview().offset(-30)
+            make.top.equalToSuperview().offset(17)
+            make.bottom.equalToSuperview().offset(-17)
             make.right.equalTo(label2.snp.left).offset(-16)
     }
 
         label1.snp.makeConstraints { make in
     make.left.equalTo(myImageView.snp.right).offset(16)
-    make.right.equalTo(label3.snp.left).inset(-10) //RIGHT
-    make.bottom.equalTo(label2.snp.top).inset(-8) //BOTTOM
+    make.right.equalTo(label3.snp.left).inset(-10)
+    make.bottom.equalTo(label2.snp.top).inset(-8)
     make.top.equalTo(myImageView.snp.top)
     }
 
@@ -206,14 +205,13 @@ class MyTableViewCell: UITableViewCell {
     }
 
         label3.snp.makeConstraints { make in
+    make.centerY.equalTo(label1.snp.centerY)
     make.right.equalToSuperview().offset(-16)
-    make.top.equalToSuperview().offset(20)
     }
   }
 }
 
-//MARK: -- UISearchBarDelegate
-
+//MARK: -- UISearchBarDelegate - для поиска из SearchBar
 extension ViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
