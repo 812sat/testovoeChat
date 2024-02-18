@@ -8,7 +8,32 @@
 import UIKit
 import SnapKit
 
+    struct ChatMessage {
+        let user: String
+        let text: String
+        let sender: String
+        let time: String
+        let timeHM: String
+        let deliveredStatus: Bool
+        let image: UIImage?
+    }
+
 class ViewController: UIViewController {
+        
+    let chats: [ChatMessage] = [
+            ChatMessage(user: "Я", text: "Какие горы", sender: "me", time: "26.01.22", timeHM: "09:41", deliveredStatus: true, image: UIImage(named: "Gora")),
+            ChatMessage(user: "Я", text: "Сделай мне кофе, пожалуйста", sender: "me", time: "27.01.22", timeHM: "21:41", deliveredStatus: true, image: nil),
+            ChatMessage(user: "Виктор Власов", text: "Хорошо", sender: "you", time: "27.01.22", timeHM: "21:41", deliveredStatus: true, image: UIImage(named: "Gora")),
+            ChatMessage(user: "Виктор Власов", text: "Хорошо", sender: "you", time: "27.01.22", timeHM: "21:41", deliveredStatus: true, image: nil),
+            ChatMessage(user: "Я", text: "Уже сделал?", sender: "me", time: "Сегодня", timeHM: "09:41", deliveredStatus: false, image: nil),
+            ChatMessage(user: "Я", text: "Мне просто срочно нужен", sender: "me", time: "Сегодня", timeHM: "09:41", deliveredStatus: false, image: nil),
+            ChatMessage(user: "Я", text: "Напиши когда будешь готов", sender: "me", time: "12-01-22", timeHM: "08:41", deliveredStatus: true, image: nil),
+            ChatMessage(user: "Саша Алексеев", text: "Я готов", sender: "you", time: "Сегодня", timeHM: "09:01", deliveredStatus: true, image: nil),
+            ChatMessage(user: "Петр Жаринов", text: "Где ты?", sender: "you", time: "Сегодня", timeHM: "09:11", deliveredStatus: true, image: nil),
+            ChatMessage(user: "Я", text: "Я вышел", sender: "me", time: "Сегодня", timeHM: "09:11", deliveredStatus: false, image: nil),
+            ChatMessage(user: "Алина Жукова", text: "Выходите?", sender: "you", time: "Сегодня", timeHM: "09:01", deliveredStatus: true, image: nil),
+            ChatMessage(user: "Я", text: "Я вышел", sender: "me", time: "Сегодня", timeHM: "09:11", deliveredStatus: true, image: nil)
+      ]
 
     private lazy var chatsLabel: UILabel = {
         let label = UILabel()
@@ -25,7 +50,6 @@ class ViewController: UIViewController {
          let searchBar = UISearchBar()
          searchBar.placeholder = "Поиск"
          searchBar.backgroundImage = UIImage()
-         searchBar.delegate = self
          return searchBar
      }()
     
@@ -111,13 +135,39 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let secondVC = SecondViewController()
         
-        if let cell = tableView.cellForRow(at: indexPath) as? MyTableViewCell {
-            secondVC.selectedImage = cell.myImageView.image
-            secondVC.selectedName = cell.label1.text
+        let name: String
+            switch indexPath.row {
+            case 0:
+                name = "Виктор Власов"
+            case 1:
+                name = "Саша Алексеев"
+            case 2:
+                name = "Петр Жаринов"
+            case 3:
+                name = "Алина Жукова"
+            default:
+                name = ""
             }
+             
+        var selectedChatMessages: [ChatMessage] = []
+            tableView.deselectRow(at: indexPath, animated: true)
+   
+        switch indexPath.row {
+        case 0:
+            selectedChatMessages = Array(chats[0..<5])
+        case 1:
+            selectedChatMessages = [chats[6], chats[7]]
+        case 2:
+            selectedChatMessages = [chats[8], chats[9]]
+        case 3:
+            selectedChatMessages = [chats[10], chats[11]]
+        default:
+            break
+        }
         
+        let secondVC = SecondViewController(name: name, image: chats[indexPath.row].image, messages: selectedChatMessages)
+
         navigationController?.pushViewController(secondVC, animated: true)
     }
 }
@@ -167,7 +217,6 @@ class MyTableViewCell: UITableViewCell {
         
         setUpViews()
         setUpConstraints()
-        
         }
     
     required init?(coder: NSCoder) {
@@ -181,7 +230,6 @@ class MyTableViewCell: UITableViewCell {
         contentView.addSubview(label3)
     }
     
-
     private func setUpConstraints() {
         myImageView.snp.makeConstraints { make in
             make.size.equalTo(60)
@@ -229,3 +277,4 @@ extension ViewController: UISearchBarDelegate {
         }
     }
 }
+
