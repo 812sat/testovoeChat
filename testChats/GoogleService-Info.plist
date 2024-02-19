@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBSSSX5fnLk0y3izTsWocF_ermYkJirhpQ</string>
+	<string>AIzaSyBuj3NvTiiPO50hJ-AlpPmZ9LPqszXzgIk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>277599613101</string>
+	<string>597393002337</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>fruitsVC</string>
+	<string>none.testChats</string>
 	<key>PROJECT_ID</key>
-	<string>chatapp-b50fb</string>
+	<string>chatstest-634d7</string>
 	<key>STORAGE_BUCKET</key>
-	<string>chatapp-b50fb.appspot.com</string>
+	<string>chatstest-634d7.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:277599613101:ios:30615481dd3989f4ec9624</string>
+	<string>1:597393002337:ios:f9ddd7c078f839f2847f20</string>
 </dict>
 </plist>

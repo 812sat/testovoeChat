@@ -168,6 +168,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         let secondVC = SecondViewController(name: name, image: chats[indexPath.row].image, messages: selectedChatMessages)
 
+        if let cell = tableView.cellForRow(at: indexPath) as? MyTableViewCell {
+                secondVC.selectedMessage = cell.label2.text
+                secondVC.selectedImage = cell.myImageView.image
+            }
+        
         navigationController?.pushViewController(secondVC, animated: true)
     }
 }
